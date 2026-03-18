@@ -1,1 +1,0 @@
-for porta in range('porta_inicial, porta_final + 1')
