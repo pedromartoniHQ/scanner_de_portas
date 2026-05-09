@@ -1,8 +1,8 @@
-um scanner simples feito em python,com as ferramentas socket,sys.
-Fiz esse projeto estudando os fundamentos de redes e cibersegurança  é basicamente uma versão bem simples do nmap.
+um scanner simples feito em python,com as ferramentas socket,sys e a biblioteca datetime.
+Fiz esse projeto estudando os fundamentos de segurança cibernetica basicamente fiz esse projeto pensando na funcionalidade do nmap.g
  
  ⚙️ Como usar
-bashpython scanner.py
+python scanner.py
 O programa vai te pedir:
 
 IP alvo (ex: 192.168.1.1)

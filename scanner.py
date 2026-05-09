@@ -1,35 +1,44 @@
+
 import socket as s
 from sys import exit
+from datetime import datetime
 
+def escaneamento_port(alvo, porta_inicial, porta_final):
+    # Correção da Linha 11: Validar o host antes de iniciar o loop
+    try:
+        alvo_resolvido = s.gethostbyname(alvo)
+    except s.gaierror:
+        return None # Retorna None para indicar que o host é inválido
 
-def port_scan(alvo, porta_inicial, porta_final):
-    print(f'\nEscaneando o alvo: {alvo}')
-    print(f'Portas: {porta_inicial} até {porta_final}\n')
+    print(f'\nEscaneando o alvo: {alvo_resolvido}')
     portas_abertas = []
 
     for porta in range(porta_inicial, porta_final + 1):
-        sock = s.socket(s.AF_INET, s.SOCK_STREAM)
-        sock.settimeout(1)
-
-        resultado = sock.connect_ex((alvo, porta))
-
-        if resultado == 0:
-            print(f'✅ Porta {porta} — ABERTA')
-            portas_abertas.append(porta)
-        else:
-            print(f'❌ Porta {porta} — fechada')
-
-        sock.close()
-
+        with s.socket(s.AF_INET, s.SOCK_STREAM) as sock:
+            sock.settimeout(0.1)
+            if sock.connect_ex((alvo_resolvido, porta)) == 0:
+                print(f'✅ Porta {porta} — ABERTA')
+                portas_abertas.append(porta)
     return portas_abertas
 
-
 if __name__ == '__main__':
-    alvo = input("Digite o IP alvo: ")
-    porta_inicial = int(input("Digite a porta inicial: "))
-    porta_final = int(input("Digite a porta final: "))
+    try:
+        # Correção da Linha 38 e arredores: Organização do fluxo de entrada
+        alvo_input = input("Digite o IP alvo: ")
+        p_ini = int(input("Digite a porta inicial: "))
+        p_fim = int(input("Digite a porta final: "))
 
-    portas_abertas = port_scan(alvo, porta_inicial, porta_final)
+        resultado = escaneamento_port(alvo_input, p_ini, p_fim)
+        horario_atual=datetime.now().strftime("%d/%m/%y")
+        if resultado is None:
+            print("❌ Erro: Host inválido ou inacessível.")
+        else:
+            print(f'\n📋 Scan finalizado! Portas abertas: {resultado}')
+        print(f"o scanner foi iniciado em: {horario_atual}")
 
-    print(f'\n📋 Scan finalizado!')
-    print(f'Portas abertas: {portas_abertas}')
+    except ValueError:
+        print("❌ Erro: Digite números válidos para as portas.")
+    except KeyboardInterrupt:
+        print("\nSaindo...")
+        exit()
+
