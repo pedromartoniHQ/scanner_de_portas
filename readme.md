@@ -1,5 +1,5 @@
 um scanner simples feito em python,com as ferramentas socket,sys e a biblioteca datetime.
-Fiz esse projeto estudando os fundamentos de segurança cibernetica basicamente fiz esse projeto pensando na funcionalidade do nmap.g
+Fiz esse projeto estudando os fundamentos de segurança cibernética, basicamente fiz esse projeto pensando na funcionalidade do nmap
  
  ⚙️ Como usar
 python scanner.py
